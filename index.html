@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Calculator</title>
+    <!-- Plotly library for graphing -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #logo {
+            width: 100px; /* Set the width of the logo */
+            height: auto; /* Maintain the aspect ratio */
+        }
+        #graph {
+            width: 80%;
+            height: 400px;
+            margin: 20px auto;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- Logo Section -->
+    <header>
+        <!-- Reference the logo directly -->
+        <img id="logo" src="school logo.png" alt="Website Logo" style="width: 100px; height: auto;">
+
+    </header>
+
+    <h1>Coordinate Graphing Calculator</h1>
+
+    <form id="coordinateForm">
+        <label for="x-coordinates">X Coordinates (comma separated):</label><br>
+        <input type="text" id="x-coordinates" name="x-coordinates" required><br><br>
+        <label for="y-coordinates">Y Coordinates (comma separated):</label><br>
+        <input type="text" id="y-coordinates" name="y-coordinates" required><br><br>
+        <button type="button" onclick="drawGraph()">Draw Graph</button>
+    </form>
+    
+    <div id="graph"></div>
+
+    <button onclick="printGraph()">Print Graph</button>
+
+    <script>
+        // Function to draw the graph using Plotly
+        function drawGraph() {
+            const xValues = document.getElementById("x-coordinates").value.split(',').map(Number);
+            const yValues = document.getElementById("y-coordinates").value.split(',').map(Number);
+
+            var data = [{
+                x: xValues,
+                y: yValues,
+                mode: 'lines+markers',
+                type: 'scatter'
+            }];
+
+            var layout = {
+                title: 'Graph of Coordinates',
+                xaxis: { title: 'X Axis' },
+                yaxis: { title: 'Y Axis' }
+            };
+
+            Plotly.newPlot('graph', data, layout);
+        }
+
+        // Function to print the graph
+        function printGraph() {
+            window.print(); 
+        }
+    </script>
+</body>
+</html>
